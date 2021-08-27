@@ -272,7 +272,7 @@
         <div class="section-title">
           <span>My Services</span>
           <h2>My Services</h2>
-          <p>Sit sint consectetur velit quisquam cupiditate impedit suscipit alias</p>
+          <p>Check out the services that I provide.</p>
         </div>
 
         <div class="row">
@@ -352,7 +352,7 @@
                 <h4>Flutter Developer</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Jagal R Nath was a real pleasure to work with and we look forward to working with him again. He’s definitely the kind of designer you can trust with a project from start to finish.
+                  Jagal was a real pleasure to work with and we look forward to working with him again. He’s definitely the kind of designer you can trust with a project from start to finish.
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -487,22 +487,28 @@
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="First Name" onkeypress="return event.charCode != 32 && (event.charCode < 48 || event.charCode > 57)" required>
+                  <span id=name-alert></span>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
                   <input type="text" name="lname" class="form-control" id="lname" placeholder="Last Name" onkeypress="return event.charCode != 32 && (event.charCode < 48 || event.charCode > 57)" required>
+                  <span id=lname-alert></span>
                 </div>
               </div>
               <div class="form-group mt-3">
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                <span id=email-alert></span>
               </div>
               <div class="form-group mt-3">
                 <input type="text" class="form-control" name="phone" id="phone" placeholder="Mobile Number" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" required>
+                <span id=phone-alert></span>
               </div>
               <div class="form-group mt-3">
                 <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                <span id=sub-alert></span>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                <textarea class="form-control" id="message" name="message" rows="6" placeholder="Message" required></textarea>
+                <br><span id=message-alert></span>
               </div>
               <div class="my-3">
                 <div class="loading" style="display: none">Loading</div>
@@ -532,14 +538,15 @@
         <a href="https://www.instagram.com/jagalsree/" class="twitter"><i class="bx bxl-twitter"></i></a>
       </div>
       <div class="copyright">
-        &copy; Copyright <strong><span>Laura</span></strong>. All Rights Reserved
+        <!-- &copy; Copyright <strong><span style="display: none;">Laura</span></strong>. All Rights Reserved -->
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/laura-free-creative-bootstrap-theme/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Made in ❤ with GitHub 
+        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
       </div>
     </div>
   </footer><!-- End Footer -->
@@ -571,94 +578,141 @@ integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 crossorigin="anonymous"></script>
   <script>
     $(document).ready(function(){
-      $("#name").blur(function(){
+      $("#name").keyup(function(){
         var text=$(this).val()
         if(text.length<3){
-          $(".error-message").text("Atleast 3 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
+          $("#name-alert").text("Atleast 3 characters");
+          // $("#name-alert").css("background-color","red");
+           $("#name-alert").css("color","red");
           $("#send").prop("disabled", true);
         }else if(text.length>15){
-          $(".error-message").text("Maximum 15 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
+          $("#name-alert").text("Maximum 15 characters");
+          //$("#name-alert").css("background-color","red");
+          $("#name-alert").css("color","red");
         }else if(text.match(/^[a-zA-Z]+$/) == null){
-          $(".error-message").text("Only letters allowed");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
+          $("#name-alert").text("Only letters allowed");
+          //$("#name-alert").css("background-color","red");
+          $("#name-alert").css("color","red");
           $("#send").prop("disabled", true);
         }
         else{
-          $(".error-message").text("");
+          $("#name-alert").text("Seems perfect!");
           send();
         }
       })
-      $("#email").blur(function(){
-        var text=$(this).val()
-        if (!text.match(/^[a-zA-Z0-9._-]+@[a-zA-Z._-]+\.[a-zA-Z._-]+$/)) {
-          $(".error-message").text("Only letters allowed");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
-          $("#send").prop("disabled", true);
-        } else {
-          $(".error-message").text("");
-          send();
-        }
-      })
-      $("#phone").blur(function(){
-        var text=$(this).val()
-        if(text.length<10){
-          $(".error-message").text("Atleast 10 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
-          $("#send").prop("disabled", true);
-        }else if(text.length>10){
-          $(".error-message").text("Maximum 10 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
-          $("#send").prop("disabled", true);
-        }else{
-          $(".error-message").text("");
-          send();
-        }
-      })
-      $("#subject").blur(function(){
+      $("#lname").keyup(function(){
         var text=$(this).val()
         if(text.length<3){
-          $(".error-message").text("Atleast 3 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
+          $("#lname-alert").text("Atleast 3 characters");
+          // $("#name-alert").css("background-color","red");
+           $("#lname-alert").css("color","red");
           $("#send").prop("disabled", true);
-        }else if(text.length>30){
-          $(".error-message").text("Maximum 30 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
+        }else if(text.length>15){
+          $("#lname-alert").text("Maximum 15 characters");
+          //$("#name-alert").css("background-color","red");
+          $("#lname-alert").css("color","red");
+        }else if(text.match(/^[a-zA-Z]+$/) == null){
+          $("#lname-alert").text("Only letters allowed");
+          //$("#name-alert").css("background-color","red");
+          $("#lname-alert").css("color","red");
           $("#send").prop("disabled", true);
-        }else{
-          $(".error-message").text("");
+        }
+        else{
+          $("#lname-alert").text("Seems perfect!");
           send();
         }
       })
-      $("#message").blur(function(){
+
+      $("#email").keyup(function(){
+        var text=$(this).val()
+        if (!text.match(/^[a-zA-Z0-9._-]+@[a-zA-Z._-]+\.[a-zA-Z._-]+$/)) {
+          $("#email-alert").text("Enter valid email address..!");
+          //$(".error-message").css("background-color","red");
+          $("#email-alert").css("color","red");
+          $("#send").prop("disabled", true);
+        } else {
+          $("#email-alert").text("Seems perfect!");
+          send();
+        }
+      })
+      $("#phone").keyup(function(){
         var text=$(this).val()
         if(text.length<10){
-          $(".error-message").text("Atleast 10 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
+          $("#phone-alert").text("Atleast 10 characters");
+          //$(".error-message").css("background-color","red");
+          $("#phone-alert").css("color","red");
+          $("#send").prop("disabled", true);
+        }else if(text.length>10){
+          $("#phone-alert").text("Maximum 10 characters");
+          //$(".error-message").css("background-color","red");
+          $("#phone-alert").css("color","red");
+          $("#send").prop("disabled", true);
+        }else if(text.length==10){
+          $("#phone-alert").text("Seems perfect!");
+          //$(".error-message").css("background-color","red");
+          $("#phone-alert").css("color","red");
+          send();
+        }
+        else{
+          $("#phone-alert").text("Seems perfect!");
+          send();
+        }
+      })
+      $("#subject").keyup(function(){
+        var text=$(this).val()
+        if(text.length<3){
+          $("#sub-alert").text("Atleast 3 characters");
+          //$(".error-message").css("background-color","red");
+          $("#sub-alert").css("color","red");
+          $("#send").prop("disabled", true);
+        }else if(text.length>30){
+          $("#sub-alert").text("Maximum 30 characters");
+          //$(".error-message").css("background-color","red");
+          $("#sub-alert").css("color","red");
+          $("#send").prop("disabled", true);
+        }else if(text.length>3&&text.length<30){
+          $("#sub-alert").text("Seems perfect!");
+          //$(".error-message").css("background-color","red");
+          $("#sub-alert").css("color","red");
+          send();
+        }
+        else{
+          //$(".error-message").text("Seems perfect!");
+          send();
+        }
+      })
+      $("#message").keyup(function(){
+        var text=$(this).val()
+        if(text.length<10){
+          $("#message-alert").text("Atleast 10 characters");
+          //$(".error-message").css("background-color","red");
+          $("#message-alert").css("color","red");
           $("#send").prop("disabled", true);
         }else if(text.length>300){
-          $(".error-message").text("Maximum 300 characters");
-          $(".error-message").css("background-color","red");
-          $(".error-message").css("color","white");
+          $("#message-alert").text("Maximum 300 characters");
+          //$("#message-alert").css("background-color","red");
+          $("#message-alert").css("color","red");
           $("#send").prop("disabled", true);
+        }else if(text.length>10&&text.length<300){
+          $("#message-alert").text("Seems perfect!");
+          //$("#message-alert").css("background-color","red");
+          $("#message-alert").css("color","red");
+          send();
         }else{
-          $(".error-message").text("");
+          $("#message-alert").text("Seems perfect!");
           send();
         }
       })
       function send(){
-        if($(".error-message").text()==""){
+        if($("#name-alert").text()=="Seems perfect!"&&
+        $("#lname-alert").text()=="Seems perfect!"&&
+        $("#email-alert").text()=="Seems perfect!"&&
+        $("#phone-alert").text()=="Seems perfect!"&&
+        $("#sub-alert").text()=="Seems perfect!"&&
+        $("#message-alert").text()=="Seems perfect!"){
           $("#send").prop("disabled", false);
+        }else{
+          $("#send").prop("disabled", true);
         }
       }
     })
